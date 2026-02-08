@@ -40,21 +40,21 @@ const ListUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map((user, index) => (
             <tr key={user.id}>
-              <td>{user.id}</td>
+              <td>{index + 1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.mobile}</td>
               <td>
                 <Link to={`/edit-user/${user.id}`} className="btn-edit">
-                  Edit
+                  Edit User
                 </Link>
                 <button
                   onClick={() => handleDelete(user.id)}
                   className="btn-delete"
                 >
-                  Delete
+                  Delete user
                 </button>
               </td>
             </tr>
