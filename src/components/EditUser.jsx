@@ -14,8 +14,8 @@ const EditUser = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (id) getUser();
-  }, [id]);
+    getUser();
+  }, []); 
 
   const getUser = () => {
     axios.get(`http://localhost:80/api/user/${id}`).then((res) => {
