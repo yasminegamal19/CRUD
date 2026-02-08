@@ -48,13 +48,13 @@ const ListUsers = () => {
               <td>{user.mobile}</td>
               <td>
                 <Link to={`/edit-user/${user.id}`} className="btn-edit">
-                  Edit User
+                  Edit
                 </Link>
                 <button
                   onClick={() => handleDelete(user.id)}
                   className="btn-delete"
                 >
-                  Delete user
+                  Delete
                 </button>
               </td>
             </tr>
