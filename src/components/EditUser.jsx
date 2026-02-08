@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./create_user/form.css";
@@ -13,11 +13,12 @@ const EditUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getUser();
-  }, []); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
 
-  const getUser = () => {
+  const getUser = useCallback(() => {
     axios.get(`http://localhost:80/api/user/${id}`).then((res) => {
       setFormData({
         name: res.data.name,
@@ -25,7 +26,12 @@ const EditUser = () => {
         mobile: res.data.mobile,
       });
     });
-  };
+  }, [id]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +83,6 @@ const EditUser = () => {
       </form>
     </div>
   );
-};
+};;
 
 export default memo(EditUser);
