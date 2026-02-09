@@ -2,6 +2,9 @@ import axios from "axios";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./form.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const CreateUser = () => {
   const [formData, setFormData] = useState({
@@ -14,13 +17,27 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.mobile) {
+      toast.error("Please fill in all fields!"); 
+      return; 
+    }
+
     axios
       .post("http://localhost:80/api/user/save", formData)
       .then((response) => {
         console.log(response.data);
-        navigate("/list-user"); 
+        toast.success("Record Created Successfully!");
+        setTimeout(() => {
+          navigate("/list-user");
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed To Create Record!");
       });
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +76,17 @@ const CreateUser = () => {
           Save
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000} 
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

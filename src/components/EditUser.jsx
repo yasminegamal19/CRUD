@@ -2,6 +2,8 @@ import { memo, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./create_user/form.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditUser = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +34,6 @@ const EditUser = () => {
     getUser();
   }, [getUser]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -40,13 +41,36 @@ const EditUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.mobile.toString().trim()
+    ) {
+      toast.error("Please fill in all fields!");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email!");
+      return;
+    }
+
     axios
       .put("http://localhost:80/api/user", { ...formData, id })
       .then((res) => {
         console.log(res.data);
-        navigate("/list-user");
+        toast.success("Record Updated Successfully!");
+
+        setTimeout(() => {
+          navigate("/list-user");
+        }, 2000);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed To Update Record!");
+      });
   };
 
   return (
@@ -81,8 +105,19 @@ const EditUser = () => {
           Save
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000} 
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
-};;
+};
 
 export default memo(EditUser);
