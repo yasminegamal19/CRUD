@@ -19,7 +19,7 @@ const EditUser = () => {
   // }, []);
 
   const getUser = useCallback(() => {
-    axios.get(`http://192.168.1.5/api/user/${id}`).then((res) => {
+    axios.get(`http://localhost:80/api/user/${id}`).then((res) => {
       setFormData({
         name: res.data.name,
         email: res.data.email,

@@ -15,10 +15,10 @@ const CreateUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://192.168.1.5/api/user/save", formData)
+      .post("http://localhost:80/api/user/save", formData)
       .then((response) => {
         console.log(response.data);
-        navigate("/list-user");
+        navigate("/list-user"); 
       });
   };
 
