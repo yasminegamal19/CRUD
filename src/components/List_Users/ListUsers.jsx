@@ -3,6 +3,9 @@ import { memo } from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ListUsers.modules.css';
+import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
+
 const ListUsers = () => {
 
   const [users, setUsers] = useState([]);
@@ -20,11 +23,50 @@ const ListUsers = () => {
 }
 
  const handleDelete = (id) => {
-  axios.delete(`http://localhost:80/api/user/${id}/delete`).then(function (response) {
-    console.log(response.data);
-    getUsers();
-  });
- }
+   const swalWithBootstrapButtons = Swal.mixin({
+     customClass: {
+       confirmButton: "btn btn-success",
+       cancelButton: "btn btn-danger me-2",
+     },
+     buttonsStyling: false,
+   });
+
+   swalWithBootstrapButtons
+     .fire({
+       title: "Are you sure?",
+       text: "You won't be able to revert this!",
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonText: "Yes, delete it!",
+       cancelButtonText: "No, cancel!",
+       reverseButtons: true,
+     })
+     .then((result) => {
+       if (result.isConfirmed) {
+         axios
+           .delete(`http://localhost:80/api/user/${id}`)
+           .then(() => {
+             swalWithBootstrapButtons.fire(
+               "Deleted!",
+               "User has been deleted successfully.",
+               "success",
+             );
+
+             setUsers((prev) => prev.filter((user) => user.id !== id));
+           })
+           .catch(() => {
+             swalWithBootstrapButtons.fire(
+               "Error!",
+               "Failed to delete user.",
+               "error",
+             );
+           });
+       } else if (result.dismiss === Swal.DismissReason.cancel) {
+         swalWithBootstrapButtons.fire("Cancelled", "User is safe 🙂", "info");
+       }
+     });
+ };
+
   
   return (
     <div>
@@ -61,6 +103,7 @@ const ListUsers = () => {
           ))}
         </tbody>
       </table>
+    
     </div>
   );
 };
