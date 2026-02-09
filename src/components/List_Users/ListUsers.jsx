@@ -12,7 +12,7 @@ const ListUsers = () => {
   },[]);
 
   function getUsers(){
-  axios.get("http://localhost:80/api/user/")
+  axios.get("http://192.168.1.5/api/user/")
   .then(function(response){
     console.log(response.data);
     setUsers(response.data);
@@ -20,7 +20,7 @@ const ListUsers = () => {
 }
 
  const handleDelete = (id) => {
-  axios.delete(`http://localhost:80/api/user/${id}/delete`).then(function (response) {
+  axios.delete(`http://192.168.1.5/api/user/${id}/delete`).then(function (response) {
     console.log(response.data);
     getUsers();
   });

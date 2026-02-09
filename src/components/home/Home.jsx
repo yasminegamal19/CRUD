@@ -33,7 +33,7 @@ const Home = () => {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link to="/" className="btn-link">
+            <Link to="list-user" className="btn-link">
               List Users
             </Link>
           </li>
