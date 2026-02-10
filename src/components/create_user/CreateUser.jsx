@@ -133,11 +133,10 @@ const CreateUser = () => {
 
     try {
       await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+        userId: ID.unique(),
         name: formData.name,
         email: formData.email,
         mobile: formData.mobile,
-                userId: ID.unique(), // أو document id نفسه
-        
       });
 
       toast.success("Record Created Successfully!");
