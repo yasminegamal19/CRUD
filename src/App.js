@@ -23,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ViewUsers />} />
         <Route path="/create" element={<CreateUsers />} />
+        <Route path="*" element={<ViewUsers />} />
       </Routes>
     </div>
   );

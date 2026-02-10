@@ -110,6 +110,8 @@ const DATABASE_ID = "698b02c7001e5f5f7163";
 const COLLECTION_ID = "users";
 
 const CreateUser = () => {
+
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -131,6 +133,8 @@ const CreateUser = () => {
       return;
     }
 
+    setLoading(true); 
+
     try {
       await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
         userId: ID.unique(),
@@ -140,14 +144,18 @@ const CreateUser = () => {
       });
 
       toast.success("Record Created Successfully!");
+
       setTimeout(() => {
-        navigate("/list-user");
+        navigate("/");
       }, 2000);
     } catch (error) {
       console.error(error);
       toast.error("Failed To Create Record!");
+    } finally {
+      setLoading(false); 
     }
   };
+
 
   return (
     <div className="form-container">
@@ -161,7 +169,7 @@ const CreateUser = () => {
           onChange={handleChange}
         />
 
-        <label>Email:</label>
+        <label>Emaillll:</label>
         <input
           type="email"
           name="email"
@@ -177,8 +185,16 @@ const CreateUser = () => {
           onChange={handleChange}
         />
 
-        <button type="submit" className="btn-save">
-          Save
+        <button type="submit" className="btn-save" disabled={loading}>
+          {loading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          ) : (
+            "Save"
+          )}
         </button>
       </form>
       <ToastContainer
