@@ -184,7 +184,11 @@ const EditUser = () => {
     }
 
     try {
-      await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, formData);
+await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, {
+  name: formData.name,
+  email: formData.email,
+  mobile: formData.mobile,
+});
       toast.success("Record Updated Successfully!");
       setTimeout(() => {
         navigate("/list-user");

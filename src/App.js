@@ -7,16 +7,27 @@ import Home from './components/home/Home';
 import ListUsers from './components/List_Users/ListUsers';
 import CreateUser from './components/create_user/CreateUser';
 import EditUser from './components/EditUser';
+import { Link } from 'react-router-dom';
+import ViewUsers from './pages/ViewUsers';
+import CreateUsers from './pages/CreateUser';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      {/* <Home />
       <Routes>
         <Route path='list-user' element={<ListUsers/>}/>
         <Route path='create-user' element={<CreateUser />} />
         <Route path='/edit-user/:id/' element={<EditUser />}/>
-        </Routes>
+        </Routes> */}
+
+      <nav>
+        <Link to="/">View Users</Link> | <Link to="/create">Create User</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<ViewUsers />} />
+        <Route path="/create" element={<CreateUsers />} />
+      </Routes>
     </div>
   );
 }

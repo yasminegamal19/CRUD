@@ -132,12 +132,12 @@ const CreateUser = () => {
     }
 
     try {
-      await databases.createDocument(
-        DATABASE_ID,
-        COLLECTION_ID,
-        ID.unique(),
-        formData,
-      );
+      await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.mobile,
+      });
+
       toast.success("Record Created Successfully!");
       setTimeout(() => {
         navigate("/list-user");

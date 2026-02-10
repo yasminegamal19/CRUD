@@ -163,8 +163,9 @@ const ListUsers = () => {
       .then(async (result) => {
         if (result.isConfirmed) {
           try {
-            await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
-            swalWithBootstrapButtons.fire(
+await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
+    
+swalWithBootstrapButtons.fire(
               "Deleted!",
               "User has been deleted successfully.",
               "success",
