@@ -136,6 +136,8 @@ const CreateUser = () => {
         name: formData.name,
         email: formData.email,
         mobile: formData.mobile,
+                userId: ID.unique(), // أو document id نفسه
+        
       });
 
       toast.success("Record Created Successfully!");
