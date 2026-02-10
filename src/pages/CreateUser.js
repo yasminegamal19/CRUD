@@ -58,7 +58,7 @@ const CreateUser = () => {
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Name:"
           value={formData.name}
           onChange={handleChange}
           required

@@ -161,7 +161,7 @@ const CreateUser = () => {
     <div className="form-container">
       <h2>Create User</h2>
       <form onSubmit={handleSubmit} className="user-form">
-        <label>Name:</label>
+        <label>Name::</label>
         <input
           type="text"
           name="name"
@@ -169,7 +169,7 @@ const CreateUser = () => {
           onChange={handleChange}
         />
 
-        <label>Emaillll:</label>
+        <label>Email:</label>
         <input
           type="email"
           name="email"
